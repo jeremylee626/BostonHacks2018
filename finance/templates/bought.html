@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Purchase Receipt
+{% endblock %}
+
+{% block main %}
+    <p>Purchase Summary</p>
+    <p><b>ID: </b>{{id}}</p>
+    <p><b>Stock: </b>{{name}}</p>
+    <p><b>Symbol: </b>{{symbol}}</p>
+    <p><b>Price: </b>{{price}}   x{{shares}} shares</p>
+    <p><b>Total Price: </b>{{total_price}}</p>
+{% endblock %}
