@@ -8,9 +8,6 @@ from flask import (
     Flask, render_template, request, session, flash, url_for, redirect, jsonify
 )
 
-
-from pymongo import MongoClient
-
 app = Flask(__name__)
 
 
