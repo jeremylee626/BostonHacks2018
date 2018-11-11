@@ -78,8 +78,9 @@
 	var locations = {{geocode | safe}};
 	
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
-      center: new google.maps.LatLng(-33.92, 151.25),
+      zoom: 12,
+
+      center: new google.maps.LatLng(42.350616, -71.109023),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
@@ -88,7 +89,8 @@
 	<!--window.alert(locations)
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
-		position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+	  	  <!--  the latitude is stored in index 2, ,longitude in index 1-->
+		position: new google.maps.LatLng(locations[i][2], locations[i][1]),
         map: map
       });
 
