@@ -20,12 +20,15 @@ key='AIzaSyAiFz7t7N6xJIh23Z79-gX_MpSSXJa5J2I'
 @app.route('/')
 @app.route('/api/v1.0/')
 def home():
-	df = pd.read_csv("Messages.csv")
-	df_html = df.to_html()  # use pandas method to auto generate html
+	df = pd.read_csv("Messages.csv", header = 0)
 	FUCKTHIS = []
 	for row in df.iterrows():
 		index, data = row
 		FUCKTHIS.append(data.tolist())
+	
+	df = df.drop(df.columns[1], axis = 1)
+	df = df.drop(df.columns[1], axis = 1)
+	df_html = df.to_html()  # use pandas method to auto generate html
 	return render_template('index.html', table_html=df_html, geocode = FUCKTHIS)
 	
 @app.route("/sms", methods=['GET', 'POST'])

@@ -28,6 +28,10 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+		            <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('home') }}">Refresh</a>
+
+					</div>
         </div>
       </div>
     </header>
@@ -35,25 +39,25 @@
       <div class="album py-5 bg-light">
         <div class="container">
           <div class="row">
-		  <div style="width: 20%; float:left">
+		  <div style="width: 40%; float:left">
 		
 
 <div id="container"></div>
                 <div class="card-body">
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('home') }}">Refresh</a>
-                    </div>
+
+					                    <div id="map" style="width: 30vw; height: 35vw;"></div>
+
                   </div>
                 </div>
+
             </div>
 
-	<div style="width: 80%; float:right">
+	<div style="width: 60%; float:right">
 <meta http-equiv="Refresh" content="5">
 			{{ table_html | safe }}
 	</div>
 
-	<div id="map" style="width: 70vw; height: 35vw;"></div>
 
 			
 
