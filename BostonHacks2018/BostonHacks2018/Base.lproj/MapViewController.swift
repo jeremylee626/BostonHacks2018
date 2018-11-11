@@ -16,20 +16,27 @@ class MapViewController: UIViewController {
     var locationManager = CLLocationManager()
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
-    var newPin = MKPointAnnotation()
+    var pinsArray = [MKPointAnnotation]()
+    var currentPin = MKPointAnnotation()
+    var message: String?
+    @IBOutlet weak var sendMessageButton: UIButton!
+    
     
     // MARK: Outlets
     @IBOutlet weak var mapView: MKMapView!
     
     // MARK: Actions
-    @IBAction func sendTipButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func sendFromCurrentLocationPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "goToTipVC", sender: self)
     }
+    
     
     // MARK: Functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Hotline Bling"
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         // Set location manager delegate
         locationManager.delegate = self
@@ -43,8 +50,36 @@ class MapViewController: UIViewController {
         // Prompts locationManager to look for GPS location
         locationManager.startUpdatingLocation()
         
-//        // Add a gesture recognizer
-//        var gestureRecognizer = UILongPressGestureRecognizer(target: self, action: <#T##Selector?#>)
+        // Add a gesture recognizer
+        let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(addPin(gestureRecognizer:)))
+        gestureRecognizer.minimumPressDuration = 0.5
+        mapView.addGestureRecognizer(gestureRecognizer)
+        
+        // Format send message button
+        sendMessageButton.layer.cornerRadius = 10.0
+        
+    }
+    
+    @objc func addPin(gestureRecognizer: UIGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            print("touch")
+            let touchPoint = gestureRecognizer.location(in: mapView)
+            let coordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            let newPin = MKPointAnnotation()
+            newPin.coordinate = coordinates
+            
+            
+//            let pinToAdd = MKPointAnnotation()
+//            pinToAdd.coordinate = coordinates
+            pinsArray.append(newPin)
+            mapView.addAnnotation(newPin)
+            
+            longitude = newPin.coordinate.longitude
+            latitude = newPin.coordinate.latitude
+            
+            performSegue(withIdentifier: "goToTipVC", sender: self)
+        }
+        
     }
     
     func centerMapLocation(location: CLLocationCoordinate2D) {
@@ -62,7 +97,18 @@ class MapViewController: UIViewController {
     }
     
     @IBAction func unwindToMapVC(_ segue: UIStoryboardSegue) {
-    
+        if pinsArray.count > 0 {
+            if let activityMessage = message {
+                pinsArray.last?.subtitle = activityMessage
+            }
+            print(mapView.annotations)
+            for pin in pinsArray {
+                if pin.subtitle == "Empty" {
+                    mapView.removeAnnotation(pin)
+                }
+            }
+        }
+        
     }
     
 }
@@ -80,7 +126,7 @@ extension MapViewController: CLLocationManagerDelegate {
             locationManager.delegate = nil
         }
         
-        // Longitude and latitude
+        // Longitude and latitude of user's current location
         latitude = location.coordinate.latitude
         longitude = location.coordinate.longitude
         
@@ -89,10 +135,14 @@ extension MapViewController: CLLocationManagerDelegate {
         print(latitude ?? 0.0)
         print(longitude ?? 0.0)
         
+        // Center map on current location
         centerMapLocation(location: currentLocation)
         
-        newPin.coordinate = location.coordinate
-        mapView.addAnnotation(newPin)
+        // Create pin at user's current location
+        currentPin.coordinate = location.coordinate
+        currentPin.title = "You are here"
+        mapView.addAnnotation(currentPin)
+
     }
     
 }
