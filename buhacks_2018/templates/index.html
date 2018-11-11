@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>OptionPro</title>
+    <title>BUPD Priority Organizer</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -21,7 +21,7 @@
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
           <a href="#" class="navbar-brand d-flex align-items-center">
-            <strong>OptionPro</strong>
+            <strong>BUPD Priority Organizer</strong>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -30,32 +30,29 @@
       </div>
     </header>
 
-    <section class="jumbotron text-center">
-      <div class="container">
-        <h1 class="jumbotron-heading">OptionPro</h1>
-        <p class="lead text-muted">Make your options work for you!</p>
-      </div>
-    </section>
-
       <div class="album py-5 bg-light">
         <div class="container">
           <div class="row">
-		  
-            <div class="col-md-4">
-              <div class="card mb-4 shadow-sm">
-              	<div class="card-header">INPUT OPTIONS TRADING HERE</div>
+		  <div style="width: 20%; float:left">
+              	<div class="card-header">Refresh</div>
                 <div class="card-body">
-                  <p class="card-text">PLACEHOLDER</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a class="btn btn-sm btn-outline-secondary" href="">View</a>
+                      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('home') }}">View</a>
                     </div>
                     <small class="text-muted">Work in Progress</small>
                   </div>
                 </div>
-              </div>
             </div>
+
+	<div style="width: 80%; float:right">
+			{{ table_html | safe }}
+	</div>
+		  
+		  
+
             
+			
 
           </div>
         </div>
@@ -63,7 +60,7 @@
 
   <footer class="py-2 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">&copy;Praesidium</p>
+      <p class="m-0 text-center text-white">&copy;BostonHacks 2018</p>
     </div>
   </footer>
 
