@@ -19,27 +19,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="CAG-sF-V6S">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="558"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fL-kV-tof">
+                                <rect key="frame" x="53" y="630" width="269" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="SZA-hE-nZR"/>
+                                </constraints>
+                                <state key="normal" title="Send Message From Current Location">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendFromCurrentLocationPressed:" destination="WiM-8m-LCf" eventType="touchUpInside" id="mDH-ic-F9d"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="533-5Z-xCH" firstAttribute="bottom" secondItem="6fL-kV-tof" secondAttribute="bottom" constant="7" id="2cG-y8-osV"/>
                             <constraint firstItem="CAG-sF-V6S" firstAttribute="leading" secondItem="533-5Z-xCH" secondAttribute="leading" id="HSx-Hw-PSS"/>
                             <constraint firstItem="CAG-sF-V6S" firstAttribute="trailing" secondItem="533-5Z-xCH" secondAttribute="trailing" id="Pfi-wh-pkG"/>
-                            <constraint firstItem="CAG-sF-V6S" firstAttribute="bottom" secondItem="533-5Z-xCH" secondAttribute="bottom" id="lT1-41-nMh"/>
+                            <constraint firstItem="533-5Z-xCH" firstAttribute="bottom" secondItem="CAG-sF-V6S" secondAttribute="bottom" constant="45" id="Zeg-QQ-T39"/>
                             <constraint firstItem="CAG-sF-V6S" firstAttribute="top" secondItem="533-5Z-xCH" secondAttribute="top" id="nXY-qK-CHF"/>
+                            <constraint firstItem="6fL-kV-tof" firstAttribute="leading" secondItem="533-5Z-xCH" secondAttribute="leading" constant="53" id="qrZ-aU-yvK"/>
+                            <constraint firstItem="533-5Z-xCH" firstAttribute="trailing" secondItem="6fL-kV-tof" secondAttribute="trailing" constant="53" id="xy7-k8-SK1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="533-5Z-xCH"/>
                     </view>
-                    <navigationItem key="navigationItem" id="o2c-af-YkX">
-                        <barButtonItem key="rightBarButtonItem" title="Send Tip" id="rZq-cb-yz6">
-                            <connections>
-                                <action selector="sendTipButtonPressed:" destination="WiM-8m-LCf" id="90j-Ly-Jmt"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="o2c-af-YkX"/>
                     <connections>
                         <outlet property="mapView" destination="CAG-sF-V6S" id="zLv-qG-Dvs"/>
+                        <outlet property="sendMessageButton" destination="6fL-kV-tof" id="KVs-U3-s67"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="goToTipVC" modalPresentationStyle="overCurrentContext" id="rvg-5b-0SR"/>
                     </connections>
                 </viewController>
@@ -96,7 +107,7 @@
                                         </state>
                                         <connections>
                                             <action selector="cancelButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="URf-O8-MX9"/>
-                                            <segue destination="7Yp-Mi-uGs" kind="unwind" unwindAction="unwindToMapVC:" id="8ex-hs-Ah7"/>
+                                            <segue destination="7Yp-Mi-uGs" kind="unwind" identifier="unwind" unwindAction="unwindToMapVC:" id="8ex-hs-Ah7"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EpB-rE-Nlp">
@@ -144,6 +155,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="E5J-Se-x0H"/>
                     <connections>
+                        <outlet property="cancelButton" destination="yjB-mx-Sl1" id="DpK-xm-tjr"/>
                         <outlet property="messageView" destination="LKb-2h-Nnm" id="2a1-ly-NBq"/>
                         <outlet property="submitButton" destination="EpB-rE-Nlp" id="oQ8-WM-Uz3"/>
                         <outlet property="tipTextView" destination="ePz-Lf-3lb" id="mvq-Pq-laz"/>
@@ -153,7 +165,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <exit id="7Yp-Mi-uGs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2015.2" y="132.68365817091455"/>
+            <point key="canvasLocation" x="2322" y="133"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ziz-sC-Ozx">

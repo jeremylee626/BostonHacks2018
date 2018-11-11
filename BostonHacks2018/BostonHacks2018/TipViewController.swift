@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import MessageUI
 
-class TipViewController: UIViewController {
+class TipViewController: UIViewController, UITextViewDelegate{
     
     // MARK: - Variables
     var locationManager = CLLocationManager()
@@ -19,6 +19,7 @@ class TipViewController: UIViewController {
     var sentDateTime: String?
     @IBOutlet weak var messageView: UIView!
     @IBOutlet weak var titleView: UIView!
+    @IBOutlet weak var cancelButton: UIButton!
     
     
     // MARK: - Outlets
@@ -36,6 +37,8 @@ class TipViewController: UIViewController {
         messageView.layer.masksToBounds = true
         
         tipTextView.layer.cornerRadius = 10.0
+        tipTextView.text = ""
+//        submitButton.isEnabled = false
         
     }
     
@@ -47,8 +50,13 @@ class TipViewController: UIViewController {
         // Format current date
         sentDateTime = dateFormatter.string(from: Date())
         
+        
+        print("Long: \(longitude ?? 0)")
+        print("Lat: \(latitude ?? 0)")
+        
         // Send message
         displayMessageInterface()
+        
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIButton) {
@@ -71,11 +79,20 @@ class TipViewController: UIViewController {
         view.endEditing(true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! MapViewController
+        if tipTextView.text.count > 0 {
+            destinationVC.message = tipTextView.text
+        } else {
+            destinationVC.message = "Empty"
+        }
+    }
 }
 
 extension TipViewController: MFMessageComposeViewControllerDelegate {
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         controller.dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "unwind", sender: self)
     }
     
     func displayMessageInterface() {
