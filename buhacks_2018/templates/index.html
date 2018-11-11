@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8GAyuGVxz7QbhHii6V-kgufBWfgW4iT0" type="text/javascript"></script>
 
-    <title>BUPD Priority Organizer</title>
+    <title>BUPD Hotline Bling</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -23,11 +23,16 @@
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container d-flex justify-content-between">
           <a href="#" class="navbar-brand d-flex align-items-center">
-            <strong>BUPD Priority Organizer</strong>
+            <strong>BUPD Hotline Bling</strong>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+		            <div class="btn-group">
+					<!--manual refresh button should you desire it-->
+                      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('home') }}">Refresh</a>
+
+					</div>
         </div>
       </div>
     </header>
@@ -35,27 +40,24 @@
       <div class="album py-5 bg-light">
         <div class="container">
           <div class="row">
-		  <div style="width: 20%; float:left">
-		
-
-<div id="container"></div>
+		  <div style="width: 40%; float:left">
+			<div id="container"></div>
                 <div class="card-body">
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('home') }}">Refresh</a>
-                    </div>
+				  <!--isplays google map on left side-->
+					<div id="map" style="width: 30vw; height: 35vw;"></div>
                   </div>
                 </div>
             </div>
 
-	<div style="width: 80%; float:right">
-<!--<meta http-equiv="Refresh" content="5"> -->
+	<div style="width: 60%; float:right">
+	<!--auto refresh every 5 seconds-->
+<meta http-equiv="Refresh" content="5">
+<!--displays dynamic HTML table with texts-->
 			{{ table_html | safe }}
 	</div>
 
-	<div id="map" style="width: 70vw; height: 35vw;"></div>
 
-			
 
           </div>
         </div>
@@ -73,22 +75,23 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
-
+<!--script to generate google map and drop markers-->
     <script type="text/javascript">
 	var locations = {{geocode | safe}};
 	
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
-      center: new google.maps.LatLng(-33.92, 151.25),
+      zoom: 12,
+
+      center: new google.maps.LatLng(42.350616, -71.109023),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
     var infowindow = new google.maps.InfoWindow();
     var marker, i;
-	<!--window.alert(locations)
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
-		position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+	  	  <!--  the latitude is stored in index 2, ,longitude in index 1-->
+		position: new google.maps.LatLng(locations[i][2], locations[i][1]),
         map: map
       });
 
