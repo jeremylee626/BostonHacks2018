@@ -3,7 +3,10 @@ Boston Hacks 2018
 
 
 To run service, first run "python __init__.py"
+Then, start ngrok.exe, type in "ngrok http 5000"
+Copy and paste url into twilio.
 Then type in "localhost:5000" into web browser.
+Send text messages to 781-241-4653
 
 Background of this app, currently police get texts about warnings, but they
 have one screen that the texts come up on.
