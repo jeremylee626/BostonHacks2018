@@ -1,7 +1,6 @@
 """
 Boston Hacks for Police Prioritization
 """
-from urllib.request import urlopen
 import os
 import json
 from datetime import datetime
