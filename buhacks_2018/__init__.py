@@ -21,15 +21,15 @@ key='AIzaSyAiFz7t7N6xJIh23Z79-gX_MpSSXJa5J2I'
 @app.route('/api/v1.0/')
 def home():
 	df = pd.read_csv("Messages.csv", header = 0)
-	FUCKTHIS = []
+	geo_coordinates = []
 	for row in df.iterrows():
 		index, data = row
-		FUCKTHIS.append(data.tolist())
+		geo_coordinates.append(data.tolist())
 	
 	df = df.drop(df.columns[1], axis = 1)
 	df = df.drop(df.columns[1], axis = 1)
 	df_html = df.to_html()  # use pandas method to auto generate html
-	return render_template('index.html', table_html=df_html, geocode = FUCKTHIS)
+	return render_template('index.html', table_html=df_html, geocode = geo_coordinates)
 	
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_ahoy_reply():
