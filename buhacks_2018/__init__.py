@@ -62,7 +62,7 @@ def sms_ahoy_reply():
 if __name__ == '__main__':
 
     File = open('Messages.csv','w') 
-    File.write('Text Content, Longitude, Latitude, Date Recieved, Address\n')
+    File.write('Text_Content, Longitude, Latitude, Date_Recieved, Address\n')
     File.close()
 	
                
