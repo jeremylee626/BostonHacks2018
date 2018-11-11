@@ -94,6 +94,7 @@ if __name__ == '__main__':
     File = open('Messages.txt','w') 
     File.write('Text Content, Longitude, Latitude\n')
     File.close()
+	
                
     def getplace(lat, lon):
         url = "https://maps.googleapis.com/maps/api/geocode/json?"
@@ -104,6 +105,5 @@ if __name__ == '__main__':
         j = json.loads(v)
         address = j['results'][0]['formatted_address']
         return address   
-
 
     app.run(host='0.0.0.0', port=5000, debug=True)
