@@ -13,6 +13,7 @@
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
   </head>
+  
 
   <body>
 
@@ -35,22 +36,24 @@
         <div class="container">
           <div class="row">
 		  <div style="width: 20%; float:left">
-              	<div class="card-header">Refresh</div>
+		
+
+<div id="container"></div>
                 <div class="card-body">
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('home') }}">View</a>
+                      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('home') }}">Refresh</a>
                     </div>
-                    <small class="text-muted">Work in Progress</small>
                   </div>
                 </div>
             </div>
 
 	<div style="width: 80%; float:right">
+<meta http-equiv="Refresh" content="5">
 			{{ table_html | safe }}
 	</div>
 
-  <div id="map" style="width: 80vw; height: 35vw;"></div>
+	<div id="map" style="width: 70vw; height: 35vw;"></div>
 
 			
 
@@ -72,14 +75,8 @@
 
 
     <script type="text/javascript">
-    var locations = [
-      ['Bondi Beach', -33.890542, 151.274856, 4],
-      ['Coogee Beach', -33.923036, 151.259052, 5],
-      ['Cronulla Beach', -34.028249, 151.157507, 3],
-      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
-      ['Maroubra Beach', -33.950198, 151.259302, 1]
-    ];
-
+	var locations = {{geocode | safe}};
+	
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
       center: new google.maps.LatLng(-33.92, 151.25),
@@ -87,12 +84,11 @@
     });
 
     var infowindow = new google.maps.InfoWindow();
-
     var marker, i;
-
+	<!--window.alert(locations)
     for (i = 0; i < locations.length; i++) {  
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+		position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         map: map
       });
 
@@ -104,6 +100,5 @@
       })(marker, i));
     }
   </script>
-
   </body>
 </html>
