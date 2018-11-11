@@ -11,9 +11,9 @@ from flask import (
 from twilio.twiml.messaging_response import MessagingResponse
 import pandas as pd
 import datetime
-from getplace import getplace
-from key import key
-import random
+import requests
+#from getplace import getplace
+#from key import key
 
 app = Flask(__name__)
 
@@ -65,7 +65,7 @@ def sms_ahoy_reply():
 	dateRecieved = message_body[message_body.find('Time:')+5:]
 	
 	address = getplace(message_lat,message_long)
-	address = "werwer"
+	#address = "werwer"
 	File.write(message_bod+', '+message_long+', '+ message_lat +', ' + dateRecieved+ ', ' + address + '\n')
 	File.close()
 	
@@ -92,14 +92,17 @@ if __name__ == '__main__':
 	
                
     def getplace(lat, lon):
-		url = "https://maps.googleapis.com/maps/api/geocode/json?"
-		url += "latlng=%s,%s&sensor=false&key=" % (lat, lon)
-		url += key
-		print(url)
-		v = urlopen(url).read()
-		v = v.decode("utf-8")
-		j = json.loads(v)
-		address = j['results'][0]['formatted_address']
-		return address   
-
+        url = "https://maps.googleapis.com/maps/api/geocode/json?"
+        url += "latlng=%s,%s&sensor=false&key=" % (lat, lon)
+        url += key
+        #url += 'AIzaSyAiFz7t7N6xJIh23Z79-gX_MpSSXJa5J2I'
+        #print(url)
+        #v = urlopen(url).read()
+        v = requests.get(url).json()
+        #v = v.decode("utf-8")
+        #j = json.loads(v)
+        address = v['results'][0]['formatted_address']
+        return address
+		
+		
     app.run(host='0.0.0.0', port=5000, debug=True)
