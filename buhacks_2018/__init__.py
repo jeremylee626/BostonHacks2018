@@ -13,14 +13,9 @@ import pandas as pd
 import datetime
 from getplace import getplace
 from key import key
-from flask_socketio import SocketIO, join_room, emit
 import random
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
-
-ROOMS = {} # dict to track active rooms
 
 #@app.route('/table')
 #def display_table():
@@ -33,7 +28,7 @@ ROOMS = {} # dict to track active rooms
 key='AIzaSyAiFz7t7N6xJIh23Z79-gX_MpSSXJa5J2I'
 	
 
-def getplace(lat, lon):
+'''def getplace(lat, lon):
 	url = "https://maps.googleapis.com/maps/api/geocode/json?"
 	url += "latlng=%s,%s&sensor=false&key=" % (lat, lon)
 	url += key
@@ -42,7 +37,7 @@ def getplace(lat, lon):
 	j = json.loads(v)
 	address = j['results'][0]['formatted_address']
 	return address
-
+'''
 
 @app.route('/')
 @app.route('/api/v1.0/')
@@ -69,21 +64,21 @@ def sms_ahoy_reply():
 	message_lat = message_body[message_body.find('Lat:')+4:message_body.find(')')]
 	dateRecieved = message_body[message_body.find('Time:')+5:]
 	
-	#address = getplace(message_lat,message_long)
+	address = getplace(message_lat,message_long)
 	address = "werwer"
 	File.write(message_bod+', '+message_long+', '+ message_lat +', ' + dateRecieved+ ', ' + address + '\n')
 	File.close()
 	
 	resp = MessagingResponse()
 	
-	df = pd.read_csv("Messages.txt")
-	df_html = df.to_html()  # use pandas method to auto generate html
-	FUCKTHIS = []
-	
-	for row in df.iterrows():
-		index, data = row
-		FUCKTHIS.append(data.tolist())
-	
+	#df = pd.read_csv("Messages.txt")
+	#df_html = df.to_html()  # use pandas method to auto generate html
+	#FUCKTHIS = []
+	#
+	#for row in df.iterrows():
+	#	index, data = row
+	#	FUCKTHIS.append(data.tolist())
+	#
 	# Add a message
 	resp.message('Thanks for the tip!')
 	
@@ -97,13 +92,14 @@ if __name__ == '__main__':
 	
                
     def getplace(lat, lon):
-        url = "https://maps.googleapis.com/maps/api/geocode/json?"
-        url += "latlng=%s,%s&sensor=false&key=" % (lat, lon)
-        url += key
-        v = urlopen(url).read()
-        v = v.decode("utf-8")
-        j = json.loads(v)
-        address = j['results'][0]['formatted_address']
-        return address   
+		url = "https://maps.googleapis.com/maps/api/geocode/json?"
+		url += "latlng=%s,%s&sensor=false&key=" % (lat, lon)
+		url += key
+		print(url)
+		v = urlopen(url).read()
+		v = v.decode("utf-8")
+		j = json.loads(v)
+		address = j['results'][0]['formatted_address']
+		return address   
 
     app.run(host='0.0.0.0', port=5000, debug=True)
